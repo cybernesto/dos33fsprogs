@@ -14,7 +14,7 @@ static void generate_keyhandler(void) {
   /* Loop until a key is pressed.                 */
   printf("9008 X=PEEK(-16384): IF X < 128 THEN 9008\n");
   /* get the key value, convert to ASCII */
-  printf("9010 X=PEEK(-16368)-128\n");
+  printf("9010 X=X-128: POKE -16368,0\n");
   /* Exit if escape or Q pressed */
   printf("9020 IF X=27 OR X=81 THEN TEXT:HOME:END\n");
   /* increment page count if space or -> */
