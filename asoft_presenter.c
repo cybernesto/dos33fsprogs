@@ -193,7 +193,6 @@ static void print_til_eof(FILE *fff,int *line_num) {
 	 continue;
       }
       
-      string[strlen(string)-1]='\0';
       	   
       if ((string[0]=='%') && (string[1]=='c') && (string[2]=='%')) {
 	 center_print(*line_num,string+3,40);                    (*line_num)++;
@@ -201,6 +200,8 @@ static void print_til_eof(FILE *fff,int *line_num) {
 	 printf("%d PRINT \"%s\"\n",*line_num,string);          (*line_num)++;
       }
    }
+        if(string[strlen(string)-1] == '\n')
+            string[strlen(string)-1]='\0';
 }
 
 static void generate_slide(int num, int max, char*filename) {
