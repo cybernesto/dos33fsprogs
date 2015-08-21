@@ -179,29 +179,32 @@ void center_print(int line_num,char *string,int cols) {
    
 }
 
-static void print_til_eof(FILE *fff,int *line_num) {	
-   
-   char *result;
-   char string[BUFSIZ];
-   
-   while(1) {
-      result=fgets(string,BUFSIZ,fff);
-      if (result==NULL) break;
-      
-      if (string[0]=='\n') {
-	 printf("%d PRINT\n",*line_num);                        (*line_num)++;
-	 continue;
-      }
-      
-      	   
-      if ((string[0]=='%') && (string[1]=='c') && (string[2]=='%')) {
-	 center_print(*line_num,string+3,40);                    (*line_num)++;
-      } else {	     
-	 printf("%d PRINT \"%s\"\n",*line_num,string);          (*line_num)++;
-      }
-   }
+static void print_til_eof(FILE *fff,int *line_num) {
+    
+    char *result;
+    char string[BUFSIZ];
+    
+    while(1) {
+        result=fgets(string,BUFSIZ,fff);
+        if (result==NULL) break;
+        
+        if (string[0]=='\n') {
+            printf("%d PRINT\n",*line_num);
+            (*line_num)++;
+            continue;
+        }
+        
         if(string[strlen(string)-1] == '\n')
             string[strlen(string)-1]='\0';
+        
+        if ((string[0]=='%') && (string[1]=='c') && (string[2]=='%')) {
+            center_print(*line_num,string+3,40);
+            (*line_num)++;
+        } else {
+            printf("%d PRINT \"%s\"\n",*line_num,string);
+            (*line_num)++;
+        }
+    }
 }
 
 static void generate_slide(int num, int max, char*filename) {
