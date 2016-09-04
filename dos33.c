@@ -1405,19 +1405,21 @@ int main(int argc, char **argv) {
             break;
 
      case COMMAND_DELETE:
-            if (argc+extra_ops<4) {
+        if (argc+extra_ops<4) {
 	       fprintf(stderr,"Error! Need file_name\n");
 	       fprintf(stderr,"%s %s DELETE apple_filename\n",argv[0],image);
 	       goto exit_and_close;
 	    }
-            catalog_entry=dos33_check_file_exists(dos_fd,argv[firstarg+2],
+        for(i=0; i<=argc+extra_ops-4; i++){
+            catalog_entry=dos33_check_file_exists(dos_fd,argv[firstarg+2+i],
 						  FILE_NORMAL);
             if (catalog_entry<0) {
-	       fprintf(stderr,
-		       "Error!  File %s does not exist\n",argv[firstarg+2]);
-	       goto exit_and_close;
-	    } 
-	    dos33_delete_file(dos_fd,catalog_entry);
+                fprintf(stderr,
+		       "Error!  File %s does not exist\n",argv[firstarg+2+i]);
+            } else {
+                dos33_delete_file(dos_fd,catalog_entry);
+            }
+        }
 	    break;
        
      case COMMAND_DUMP:
