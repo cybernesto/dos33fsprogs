@@ -188,7 +188,7 @@ void multiline_print(int *line_num, char *string, int cols) {
 
     /* Keep the margin of bullet points */
     if(string[0] < 'A' || string[0] > 'z'){
-        for(tab=1; tab < len && string[tab] < 'A' || string[tab] > 'z'; tab++);
+        for(tab=1; tab < len && (string[tab] < 'A' || string[tab] > 'z'); tab++);
         cols -= tab; // Simplicity tradeoff: This will affect the maximum length of the first line as well.
     }
     
